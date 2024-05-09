@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Page With ElasticSearch</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+        .logo {
+            margin-bottom: 20px;
+        }
+        .search-box {
+            display: flex;
+            align-items: center;
+            width: 480px;
+            height: 44px;
+            border: 1px solid #dfe1e5;
+            box-shadow: none;
+            border-radius: 24px;
+            padding: 0 20px;
+        }
+        .search-box input {
+            flex: 1;
+            border: none;
+            outline: none;
+        }
+        .search-box input::placeholder {
+            color: #9aa0a6;
+        }
+    </style>
+</head>
+<body>
+<div class="logo">
+    <img src="/logo.png" alt="Logo">
+</div>
+<form action="/es/search_keyword" method="get" class="search-box">
+    <input type="text" id="keyword" name="keyword" placeholder="Search the web...">
+    <input type="submit" value="Search" style="visibility: hidden;">
+</form>
+</body>
+</html>

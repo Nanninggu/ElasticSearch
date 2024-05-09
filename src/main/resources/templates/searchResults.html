@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Search Results</title>
+  <!-- Add Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <!-- Add custom CSS -->
+  <style>
+    body {
+      padding: 20px;
+    }
+    .result {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+<h1 class="mb-4">Search Results</h1>
+<!-- Add a button that links back to the search page -->
+<a href="/search.html" class="btn btn-primary mb-4">Back to Search</a>
+<ul class="list-group" th:unless="${#lists.isEmpty(results)}">
+  <li class="list-group-item" th:each="result : ${results}">
+    <!-- Access the 'body' field from the source document -->
+    <div class="result" th:text="${result.sourceAsMap['keywords']}"></div>
+  </li>
+</ul>
+<!-- Display a message when there are no search results -->
+<p th:if="${#lists.isEmpty(results)}">No search results exist.</p>
+</body>
+</html>
