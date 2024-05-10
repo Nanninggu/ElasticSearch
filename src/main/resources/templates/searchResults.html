@@ -18,12 +18,32 @@
 <h1 class="mb-4">Search Results</h1>
 <!-- Add a button that links back to the search page -->
 <a href="/search.html" class="btn btn-primary mb-4">Back to Search</a>
-<ul class="list-group" th:unless="${#lists.isEmpty(results)}">
-  <li class="list-group-item" th:each="result : ${results}">
-    <!-- Access the 'body' field from the source document -->
-    <div class="result" th:text="${result.sourceAsMap['keywords']}"></div>
-  </li>
-</ul>
+<table class="table" th:unless="${#lists.isEmpty(results)}">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Title</th>
+    <th scope="col">Genres</th>
+    <th scope="col">Popularity</th>
+    <th scope="col">Budget</th>
+    <th scope="col">VoteCount</th>
+    <th scope="col">Runtime</th>
+    <th scope="col">Overview</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="result, stat : ${results}">
+    <th scope="row" th:text="${stat.count}"></th>
+    <td th:text="${result.sourceAsMap['title']}"></td>
+    <td th:text="${#strings.arrayJoin(result.sourceAsMap['genres'], ', ')}"></td>
+    <td th:text="${result.sourceAsMap['popularity']}"></td>
+    <td th:text="${result.sourceAsMap['budget']}"></td>
+    <td th:text="${result.sourceAsMap['vote_count']}"></td>
+    <td th:text="${result.sourceAsMap['runtime']}"></td>
+    <td th:text="${result.sourceAsMap['overview']}"></td>
+  </tr>
+  </tbody>
+</table>
 <!-- Display a message when there are no search results -->
 <p th:if="${#lists.isEmpty(results)}">No search results exist.</p>
 </body>

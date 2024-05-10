@@ -16,6 +16,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class InsertDataToESFromFiles {
@@ -55,6 +56,17 @@ public class InsertDataToESFromFiles {
                     // Set a default date value
                     data.put("release_date", "2000-01-01");
                 }
+
+                // Parse the genres string into a list
+                String genresString = (String) data.get("genres");
+                List<Map<String, Object>> genres = objectMapper.readValue(genresString, new TypeReference<List<Map<String, Object>>>() {
+                });
+
+                // Process the genres list to extract the name values
+                List<String> genreNames = genres.stream()
+                        .map(genre -> (String) genre.get("name"))
+                        .collect(Collectors.toList());
+                data.put("genres", genreNames);
 
                 // Create the IndexRequest without specifying an id
                 IndexRequest request = new IndexRequest(index);
