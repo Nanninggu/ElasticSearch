@@ -1,49 +1,61 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>Search Results</title>
-  <!-- Add Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <!-- Add custom CSS -->
-  <style>
-    body {
-      padding: 20px;
-    }
-    .result {
-      margin-bottom: 10px;
-    }
-  </style>
+    <title>Search Results</title>
+    <!-- Add Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <!-- Add custom CSS -->
+    <style>
+        body {
+          padding: 20px;
+        }
+        .result {
+          margin-bottom: 10px;
+        }
+    </style>
 </head>
 <body>
 <h1 class="mb-4">Search Results</h1>
 <!-- Add a button that links back to the search page -->
 <a href="/search.html" class="btn btn-primary mb-4">Back to Search</a>
+
 <table class="table" th:unless="${#lists.isEmpty(results)}">
-  <thead>
-  <tr>
-    <th scope="col">#</th>
-    <th scope="col">Title</th>
-    <th scope="col">Genres</th>
-    <th scope="col">Popularity</th>
-    <th scope="col">Budget</th>
-    <th scope="col">VoteCount</th>
-    <th scope="col">Runtime</th>
-    <th scope="col">Overview</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr th:each="result, stat : ${results}">
-    <th scope="row" th:text="${stat.count}"></th>
-    <td th:text="${result.sourceAsMap['title']}"></td>
-    <td th:text="${#strings.arrayJoin(result.sourceAsMap['genres'], ', ')}"></td>
-    <td th:text="${result.sourceAsMap['popularity']}"></td>
-    <td th:text="${result.sourceAsMap['budget']}"></td>
-    <td th:text="${result.sourceAsMap['vote_count']}"></td>
-    <td th:text="${result.sourceAsMap['runtime']}"></td>
-    <td th:text="${result.sourceAsMap['overview']}"></td>
-  </tr>
-  </tbody>
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Title</th>
+        <th scope="col">Genres</th>
+        <th scope="col">Popularity</th>
+        <th scope="col">Budget</th>
+        <th scope="col">VoteCount</th>
+        <th scope="col">Runtime</th>
+        <th scope="col">Overview</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="result, stat : ${results}">
+        <th scope="row" th:text="${stat.count}"></th>
+        <td th:text="${result.sourceAsMap['title']}"></td>
+        <td th:text="${#strings.arrayJoin(result.sourceAsMap['genres'], ', ')}"></td>
+        <td th:text="${result.sourceAsMap['popularity']}"></td>
+        <td th:text="${result.sourceAsMap['budget']}"></td>
+        <td th:text="${result.sourceAsMap['vote_count']}"></td>
+        <td th:text="${result.sourceAsMap['runtime']}"></td>
+        <td th:text="${result.sourceAsMap['overview']}"></td>
+    </tr>
+    </tbody>
 </table>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item" th:each="menu : ${menuData}">
+                <a class="nav-link" th:text="${menu}" th:href="'#' + ${menu}"></a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
 <!-- Display a message when there are no search results -->
 <p th:if="${#lists.isEmpty(results)}">No search results exist.</p>
 </body>

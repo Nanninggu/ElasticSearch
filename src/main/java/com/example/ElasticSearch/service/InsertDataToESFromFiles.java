@@ -33,6 +33,7 @@ public class InsertDataToESFromFiles {
      */
     public void insertFileData(String index, String filePath) {
         try {
+
             // Check if the index exists
             boolean indexExists = client.indices().exists(new GetIndexRequest(index), RequestOptions.DEFAULT);
             if (!indexExists) {
@@ -41,6 +42,7 @@ public class InsertDataToESFromFiles {
             } else if (!indexExists) {
                 throw new IllegalArgumentException("Index " + index + " does not exist");
             }
+
             // Read the file content
             String fileContent = new String(Files.readAllBytes(Paths.get(filePath)));
 
@@ -77,7 +79,6 @@ public class InsertDataToESFromFiles {
                 // Send the IndexRequest
                 client.index(request, RequestOptions.DEFAULT);
             }
-
         } catch (IOException e) {
             // Handle the exception here
             e.printStackTrace();

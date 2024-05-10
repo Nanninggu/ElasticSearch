@@ -41,4 +41,5 @@ public class FileService {
         ObjectMapper mapper = new ObjectMapper();
         mapper.writeValue(Paths.get(outputFilePath).toFile(), data);
     }
+
 }

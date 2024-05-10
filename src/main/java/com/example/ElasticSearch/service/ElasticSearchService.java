@@ -38,6 +38,7 @@ public class ElasticSearchService {
     public Map<String, Object> getDataFromES() throws IOException {
         GetRequest getRequest = new GetRequest("index-001", "S08YVo8BzMdr2BQJnSaU");
         GetResponse getResponse = client.get(getRequest, RequestOptions.DEFAULT);
+
         return getResponse.getSourceAsMap();
     }
 
@@ -52,6 +53,7 @@ public class ElasticSearchService {
         CountRequest countRequest = new CountRequest(index);
         countRequest.query(QueryBuilders.matchAllQuery());
         CountResponse searchResponse = client.count(countRequest, RequestOptions.DEFAULT);
+
         return searchResponse.getCount();
     }
 
@@ -69,14 +71,11 @@ public class ElasticSearchService {
 
         // Create a SearchSourceBuilder
         SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
-
         // Add a match query
         sourceBuilder.query(QueryBuilders.matchQuery(field, keyword));
-
         // Create a SearchRequest
         SearchRequest searchRequest = new SearchRequest(index);
         searchRequest.source(sourceBuilder);
-
         // Execute the search and get the response
         SearchResponse searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
 
@@ -93,11 +92,10 @@ public class ElasticSearchService {
 
         // Create a GetIndexRequest
         GetIndexRequest request = new GetIndexRequest("*");
-
         // Execute the request and get the response
         GetIndexResponse getIndexResponse = client.indices().get(request, RequestOptions.DEFAULT);
-
         // Return the list of index names
+
         return getIndexResponse.getIndices();
     }
 
@@ -110,18 +108,16 @@ public class ElasticSearchService {
      * @throws IOException
      */
     public List<Object> searchByKeywordBody(String index, String field, String keyword) throws IOException {
+
         // Create a SearchSourceBuilder
         SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
         // Add a match query
         sourceBuilder.query(QueryBuilders.matchQuery(field, keyword));
-
         // Create a SearchRequest
         SearchRequest searchRequest = new SearchRequest(index);
         searchRequest.source(sourceBuilder);
-
         // Execute the search and get the response
         SearchResponse searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
-
         // Get the body field from each hit and add it to a list
         List<Object> bodies = new ArrayList<>();
         Arrays.stream(searchResponse.getHits().getHits()).forEach(hit -> bodies.add(hit.getSourceAsMap().get("body")));
