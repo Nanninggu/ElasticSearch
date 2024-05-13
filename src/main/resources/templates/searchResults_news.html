@@ -17,31 +17,24 @@
 <body>
 <h1 class="mb-4">Search Results</h1>
 <!-- Add a button that links back to the search page -->
-<a href="/search.html" class="btn btn-primary mb-4">Back to Search</a>
+<a href="/news.html" class="btn btn-primary mb-4">Back to Search</a>
 
 <table class="table" th:unless="${#lists.isEmpty(results)}">
     <thead>
     <tr>
         <th scope="col">#</th>
         <th scope="col">Title</th>
-        <th scope="col">Genres</th>
-        <th scope="col">Popularity</th>
-        <th scope="col">Budget</th>
-        <th scope="col">VoteCount</th>
-        <th scope="col">Runtime</th>
-        <th scope="col">Overview</th>
+        <th scope="col">search_term</th>
+        <th scope="col">link</th>
+
     </tr>
     </thead>
     <tbody>
     <tr th:each="result, stat : ${results}">
         <th scope="row" th:text="${stat.count}"></th>
         <td th:text="${result.sourceAsMap['title']}"></td>
-        <td th:text="${#strings.arrayJoin(result.sourceAsMap['genres'], ', ')}"></td>
-        <td th:text="${result.sourceAsMap['popularity']}"></td>
-        <td th:text="${result.sourceAsMap['budget']}"></td>
-        <td th:text="${result.sourceAsMap['vote_count']}"></td>
-        <td th:text="${result.sourceAsMap['runtime']}"></td>
-        <td th:text="${result.sourceAsMap['overview']}"></td>
+        <td th:text="${result.sourceAsMap['search_term']}"></td>
+        <td th:text="${result.sourceAsMap['link']}"></td>
     </tr>
     </tbody>
 </table>

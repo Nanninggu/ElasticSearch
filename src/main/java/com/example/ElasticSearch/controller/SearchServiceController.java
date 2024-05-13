@@ -17,6 +17,7 @@ public class SearchServiceController {
 
     @Autowired
     InsertDataToESFromFiles insertDataToESFromFiles;
+
     @Autowired
     private ElasticSearchService elasticSearchService;
 
@@ -49,7 +50,8 @@ public class SearchServiceController {
 
     @PostMapping("/insert_file_of_json")
     public void insertFileOfJson() throws IOException {
-        insertDataToESFromFiles.insertFileData("index-movie", "C:\\data_set_for_es\\csv\\json\\tmdb_5000_movies.json");
+//        insertDataToESFromFiles.insertFileData("index-movie", "C:\\data_set_for_es\\csv\\json\\tmdb_5000_movies.json");
+        insertDataToESFromFiles.insertFileDataToNews("index-news", "C:\\data_set_for_es\\news\\json\\2024-05-13_11-56-12.json");
     }
 
 }

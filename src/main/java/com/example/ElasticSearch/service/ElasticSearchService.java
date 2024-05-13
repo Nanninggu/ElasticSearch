@@ -11,11 +11,14 @@ import org.elasticsearch.client.core.CountRequest;
 import org.elasticsearch.client.core.CountResponse;
 import org.elasticsearch.client.indices.*;
 import org.elasticsearch.cluster.metadata.MappingMetadata;
+import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.aggregations.bucket.terms.Terms;
 import org.elasticsearch.search.aggregations.metrics.ValueCount;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
+import org.elasticsearch.xcontent.XContentBuilder;
+import org.elasticsearch.xcontent.XContentFactory;
 import org.elasticsearch.xcontent.XContentType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -123,6 +126,35 @@ public class ElasticSearchService {
         Arrays.stream(searchResponse.getHits().getHits()).forEach(hit -> bodies.add(hit.getSourceAsMap().get("body")));
 
         return bodies;
+    }
+
+    public void createIndexWithKoreanAnalyzer() throws IOException {
+        // Create an index with a Korean analyzer
+        CreateIndexRequest request = new CreateIndexRequest("index-news-google");
+        request.settings(Settings.builder()
+                .put("index.analysis.analyzer.default.type", "korean")
+        );
+
+        // Define the mappings with the Korean analyzer
+        XContentBuilder builder = XContentFactory.jsonBuilder();
+        builder.startObject();
+        {
+            builder.startObject("properties");
+            {
+                builder.startObject("channel.item.title");
+                {
+                    builder.field("type", "text");
+                    builder.field("analyzer", "korean");
+                }
+                builder.endObject();
+            }
+            builder.endObject();
+        }
+        builder.endObject();
+        request.mapping(builder);
+
+        // Create the index
+        CreateIndexResponse createIndexResponse = client.indices().create(request, RequestOptions.DEFAULT);
     }
 
 }
