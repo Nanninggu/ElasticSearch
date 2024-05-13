@@ -39,9 +39,4 @@ public class NewsGetController {
         return modelAndView;
     }
 
-    @GetMapping("/result")
-    public ModelAndView result() {
-        return new ModelAndView("searchResults_news");
-    }
-
 }

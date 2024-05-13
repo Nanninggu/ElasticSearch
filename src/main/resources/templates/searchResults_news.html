@@ -25,7 +25,6 @@
         <th scope="col">#</th>
         <th scope="col">Title</th>
         <th scope="col">search_term</th>
-        <th scope="col">link</th>
 
     </tr>
     </thead>
@@ -34,7 +33,6 @@
         <th scope="row" th:text="${stat.count}"></th>
         <td th:text="${result.sourceAsMap['title']}"></td>
         <td th:text="${result.sourceAsMap['search_term']}"></td>
-        <td th:text="${result.sourceAsMap['link']}"></td>
     </tr>
     </tbody>
 </table>

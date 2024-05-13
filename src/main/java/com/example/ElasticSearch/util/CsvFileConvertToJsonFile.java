@@ -11,6 +11,12 @@ import java.util.Map;
 
 public class CsvFileConvertToJsonFile {
 
+    /**
+     * Convert a CSV file to a JSON file
+     * @param file
+     * @return
+     * @throws IOException
+     */
     public static List<Map<?, ?>> convertCsvToJson(MultipartFile file) throws IOException {
         CsvSchema bootstrapSchema = CsvSchema.emptySchema().withHeader();
         CsvMapper mapper = new CsvMapper();

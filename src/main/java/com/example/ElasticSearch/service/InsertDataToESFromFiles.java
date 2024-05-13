@@ -88,7 +88,7 @@ public class InsertDataToESFromFiles {
     }
 
     /**
-     * 특정 경로의 파일을 읽어와서 ES에 데이터를 삽입하는 코드 (조금 지져분한데...!!!)
+     * 특정 경로의 파일을 읽어와서 ES에 데이터를 삽입하는 코드 (News 데이터용)
      *
      * @param index
      * @param filePath

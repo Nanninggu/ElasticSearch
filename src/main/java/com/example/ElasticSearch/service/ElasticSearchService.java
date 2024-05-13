@@ -128,33 +128,4 @@ public class ElasticSearchService {
         return bodies;
     }
 
-    public void createIndexWithKoreanAnalyzer() throws IOException {
-        // Create an index with a Korean analyzer
-        CreateIndexRequest request = new CreateIndexRequest("index-news-google");
-        request.settings(Settings.builder()
-                .put("index.analysis.analyzer.default.type", "korean")
-        );
-
-        // Define the mappings with the Korean analyzer
-        XContentBuilder builder = XContentFactory.jsonBuilder();
-        builder.startObject();
-        {
-            builder.startObject("properties");
-            {
-                builder.startObject("channel.item.title");
-                {
-                    builder.field("type", "text");
-                    builder.field("analyzer", "korean");
-                }
-                builder.endObject();
-            }
-            builder.endObject();
-        }
-        builder.endObject();
-        request.mapping(builder);
-
-        // Create the index
-        CreateIndexResponse createIndexResponse = client.indices().create(request, RequestOptions.DEFAULT);
-    }
-
 }

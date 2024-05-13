@@ -13,8 +13,12 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+/**
+ * 구글 뉴스를 크롤링하여 json 파일로 저장하는 클래스
+
+ */
 public class GetNewsFromGoogle {
-    public static void main(String[] args) throws IOException {
+    public static void getNewsFromGoogle() throws IOException {
         String tbs = "qdr:w";
         Map<String, String> searchTerms = new HashMap<>();
         searchTerms.put("term1", "삼성전자");
